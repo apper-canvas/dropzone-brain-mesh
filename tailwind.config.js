@@ -6,31 +6,39 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
+colors: {
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',
+          200: '#bfdbfe',
           500: '#2563eb',
           600: '#2563eb',
           700: '#1d4ed8',
+          800: '#1e40af',
         },
         success: {
           50: '#ecfdf5',
           100: '#d1fae5',
+          200: '#a7f3d0',
           500: '#10b981',
           600: '#059669',
+          800: '#065f46',
         },
         warning: {
           50: '#fffbeb',
           100: '#fef3c7',
+          200: '#fde68a',
           500: '#f59e0b',
           600: '#d97706',
+          800: '#92400e',
         },
         error: {
           50: '#fef2f2',
           100: '#fee2e2',
+          200: '#fecaca',
           500: '#ef4444',
           600: '#dc2626',
+          800: '#991b1b',
         },
         gray: {
           50: '#f8fafc',
