@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "filename": "document.pdf",
+    "originalName": "Annual Report 2023.pdf",
+    "size": 2048576,
+    "type": "application/pdf",
+    "status": "completed",
+    "uploadedAt": "2024-01-15T10:30:00Z",
+    "url": "https://example.com/uploads/1-document.pdf",
+    "progress": 100,
+    "error": null
+  },
+  {
+    "Id": 2,
+    "filename": "image.jpg",
+    "originalName": "Team Photo.jpg",
+    "size": 1536000,
+    "type": "image/jpeg",
+    "status": "completed",
+    "uploadedAt": "2024-01-15T09:15:00Z",
+    "url": "https://example.com/uploads/2-image.jpg",
+    "progress": 100,
+    "error": null
+  },
+  {
+    "Id": 3,
+    "filename": "presentation.pptx",
+    "originalName": "Q4 Results Presentation.pptx",
+    "size": 5242880,
+    "type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "status": "failed",
+    "uploadedAt": null,
+    "url": null,
+    "progress": 0,
+    "error": "Network connection lost during upload"
+  },
+  {
+    "Id": 4,
+    "filename": "spreadsheet.xlsx",
+    "originalName": "Budget Analysis.xlsx",
+    "size": 1048576,
+    "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "status": "completed",
+    "uploadedAt": "2024-01-14T16:45:00Z",
+    "url": "https://example.com/uploads/4-spreadsheet.xlsx",
+    "progress": 100,
+    "error": null
+  },
+  {
+    "Id": 5,
+    "filename": "video.mp4",
+    "originalName": "Product Demo.mp4",
+    "size": 15728640,
+    "type": "video/mp4",
+    "status": "completed",
+    "uploadedAt": "2024-01-14T14:20:00Z",
+    "url": "https://example.com/uploads/5-video.mp4",
+    "progress": 100,
+    "error": null
+  }
+]
