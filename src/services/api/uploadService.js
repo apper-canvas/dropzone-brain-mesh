@@ -10,7 +10,7 @@ class UploadService {
       let progress = 0;
       const increment = Math.random() * 15 + 5; // 5-20% increments
       
-      const updateProgress = () => {
+const updateProgress = async () => {
         progress += increment + (Math.random() * 10 - 5); // Add some randomness
         progress = Math.min(progress, 100);
         
