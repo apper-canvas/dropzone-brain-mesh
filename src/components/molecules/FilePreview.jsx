@@ -70,8 +70,13 @@ const FilePreview = ({
               {file.name}
             </h4>
             <p className="text-xs text-gray-500 mt-1">
-              {formatFileSize(file.size)}
+{formatFileSize(file.size)}
             </p>
+            {file.description && (
+              <p className="text-xs text-gray-500 mt-1 italic">
+                "{file.description}"
+              </p>
+            )}
           </div>
           
           {/* Status Badge */}

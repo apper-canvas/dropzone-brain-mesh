@@ -22,15 +22,29 @@ class UploadService {
           // Simulate potential failures (10% chance)
           if (Math.random() < 0.1) {
             reject(new Error(this.getRandomError()));
-          } else {
+} else {
+            const fileId = this.generateFileId();
+            let description = null;
+
+            // Generate description for image files using OpenAI
+            if (file.type.startsWith('image/')) {
+              try {
+                description = await this.generateImageDescription(file);
+              } catch (error) {
+                console.info(`Image analysis failed for ${file.name}: ${error.message}`);
+                description = 'Image analysis unavailable';
+              }
+            }
+
             resolve({
               success: true,
-              fileId: this.generateFileId(),
+              fileId: fileId,
               filename: file.name,
               size: file.size,
               type: file.type,
+              description: description,
               uploadedAt: new Date().toISOString(),
-              url: `https://example.com/uploads/${this.generateFileId()}-${file.name}`
+              url: `https://example.com/uploads/${fileId}-${file.name}`
             });
           }
         } else {
@@ -44,7 +58,55 @@ class UploadService {
       setTimeout(updateProgress, 100);
     });
   }
-  
+async generateImageDescription(file) {
+    try {
+      // Convert file to base64
+      const base64 = await this.fileToBase64(file);
+      
+      // Initialize ApperClient
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      // Call the analyze-image Edge function
+      const result = await apperClient.functions.invoke(import.meta.env.VITE_ANALYZE_IMAGE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          imageBase64: base64,
+          mimeType: file.type,
+          filename: file.name
+        })
+      });
+
+      const responseData = await result.json();
+      
+      if (!responseData.success) {
+        throw new Error(responseData.error || 'Failed to analyze image');
+      }
+
+      return responseData.description;
+    } catch (error) {
+      console.info(`Function Error: An error was received in this function: ${import.meta.env.VITE_ANALYZE_IMAGE}. The response body is: ${error.message}. The error message was: ${error.message}`);
+      throw error;
+    }
+  }
+
+  fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result.split(',')[1]; // Remove data:image/type;base64, prefix
+        resolve(base64);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
   async uploadMultipleFiles(files, progressCallback) {
     const results = [];
     let overallProgress = 0;

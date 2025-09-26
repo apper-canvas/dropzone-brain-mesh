@@ -1,12 +1,12 @@
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useCallback, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "react-toastify";
+import { uploadService } from "@/services/api/uploadService";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
 import UploadZone from "@/components/molecules/UploadZone";
 import FilePreview from "@/components/molecules/FilePreview";
 import ProgressBar from "@/components/molecules/ProgressBar";
-import { uploadService } from "@/services/api/uploadService";
+import Button from "@/components/atoms/Button";
 
 const FileUploadManager = () => {
   const [files, setFiles] = useState([]);
@@ -42,7 +42,8 @@ const FileUploadManager = () => {
           progress: 0,
           error: null,
           preview,
-          uploadedAt: null,
+uploadedAt: null,
+          description: null,
           file, // Keep reference to original file
         };
       })
@@ -89,7 +90,7 @@ const FileUploadManager = () => {
             ));
           });
 
-          // Mark as completed
+// Mark as completed
           setFiles(prev => prev.map(f => 
             f.id === file.id 
               ? { 
@@ -97,6 +98,7 @@ const FileUploadManager = () => {
                   status: "completed", 
                   progress: 100,
                   uploadedAt: new Date(),
+                  description: uploadResult.description,
                   error: null
                 }
               : f
